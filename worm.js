@@ -3,7 +3,7 @@ var score,
     speedHeadRight, speedHeadDown, speedTailRight, speedTailDown,
     tailX, tailY, headX, headY,
     bendPoints;
-function initialise(){
+function initialize(){
   score = 0,
   speedHeadRight = 1, speedHeadDown = 0, speedTailRight = 1, speedTailDown = 0,
   tailX = 450, tailY = 250, headX = 500, headY = 250,
@@ -64,7 +64,7 @@ function drawWorm(ctx) {
 var worm;
 $("#newGame").on("click", function(){
   clearInterval(worm);
-  initialise();
+  initialize();
   worm = setInterval(function(){drawWorm(ctx)}, 10);
   if($("#pause").hasClass("paused")){
     $("#pause").removeClass("paused").attr("value", "Pause");
