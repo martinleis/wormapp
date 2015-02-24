@@ -1,11 +1,13 @@
-body{
-  background-color: #babdb6;
+body {
+	background-color: #babdb6;
 }
-canvas{
-  background-color: white;
-  float: left;
+
+canvas {
+	background-color: white;
+	float: left;
 }
-#newGame{
-  display: block;
-  margin: 5px;
+
+#newGame {
+	display: block;
+	margin: 5px;
 }
