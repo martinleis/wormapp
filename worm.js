@@ -109,7 +109,7 @@ function drawWorm(ctx) {
 }
 
 function updateBestScore() {
-	if (worm.score > bestScore) {
+	if (worm && worm.score > bestScore) {
 		bestScore = worm.score;
 	}
 	$("#bestScore").html(bestScore);
@@ -119,9 +119,9 @@ $(document).ready(function() {
 	ctx = $("#canvas")[0].getContext("2d");
 	$("#newGame").on("click", function() {
 		clearInterval(gameOn);
+		updateBestScore();
 		worm = new Worm("red", 1);
 		food = new Food("black");
-		updateBestScore();
 		gameOn = setInterval(function() {
 			drawWorm(ctx)
 		}, 10);
