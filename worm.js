@@ -31,29 +31,37 @@ $(document).keydown(function(event) {
 		event.preventDefault();
 	}
 	switch (event.which) {
-	case 37:
-		worm.bendPoints.push([worm.headX, worm.headY, -1, 0]);
-		worm.speedHeadRight = -1;
-		worm.speedHeadDown = 0;
-		worm.scanner = [worm.headX-1, worm.headY-5, 1, 10];
+	case 37://left
+		if (worm.speedHeadRight === 0) {
+			worm.bendPoints.push([worm.headX, worm.headY, -1, 0]);
+			worm.speedHeadRight = -1;
+			worm.speedHeadDown = 0;
+			worm.scanner = [worm.headX-1, worm.headY-5, 1, 10];
+		}
 		break;
-	case 38:
-		worm.bendPoints.push([worm.headX, worm.headY, 0, -1]);
-		worm.speedHeadRight = 0;
-		worm.speedHeadDown = -1;
-		worm.scanner = [worm.headX-5, worm.headY-1, 10, 1];
+	case 38://up
+		if (worm.speedHeadDown === 0) {
+			worm.bendPoints.push([worm.headX, worm.headY, 0, -1]);
+			worm.speedHeadRight = 0;
+			worm.speedHeadDown = -1;
+			worm.scanner = [worm.headX-5, worm.headY-1, 10, 1];
+		}
 		break;
-	case 39:
-		worm.bendPoints.push([worm.headX, worm.headY, 1, 0]);
-		worm.speedHeadRight = 1;
-		worm.speedHeadDown = 0;
-		worm.scanner = [worm.headX+1, worm.headY-5, 1, 10];
+	case 39://right
+		if (worm.speedHeadRight === 0) {
+			worm.bendPoints.push([worm.headX, worm.headY, 1, 0]);
+			worm.speedHeadRight = 1;
+			worm.speedHeadDown = 0;
+			worm.scanner = [worm.headX+1, worm.headY-5, 1, 10];
+		}
 		break;
-	case 40:
-		worm.bendPoints.push([worm.headX, worm.headY, 0, 1]);
-		worm.speedHeadRight = 0;
-		worm.speedHeadDown = 1;
-		worm.scanner = [worm.headX-5, worm.headY+1, 10, 1];
+	case 40://down
+		if (worm.speedHeadDown === 0) {
+			worm.bendPoints.push([worm.headX, worm.headY, 0, 1]);
+			worm.speedHeadRight = 0;
+			worm.speedHeadDown = 1;
+			worm.scanner = [worm.headX-5, worm.headY+1, 10, 1];
+		}
 		break;
 	}
 });
@@ -90,7 +98,7 @@ function drawWorm(ctx) {
 			break;
 		}
 	}
-	if (worm.timeSinceLastMeal > 50) {
+	if (worm.timeSinceLastMeal >= 50) {
 		worm.tailX += worm.speedTailRight;
 		worm.tailY += worm.speedTailDown;
 	}
