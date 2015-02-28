@@ -107,9 +107,9 @@ function drawWorm(ctx) {
 	worm.scanner[0] += worm.speedHeadRight;
 	worm.scanner[1] += worm.speedHeadDown;
 	worm.timeSinceLastMeal++;
-	
-	if (worm.bendPoints[0] && worm.tailX === worm.bendPoints[0][0]
-			&& worm.tailY === worm.bendPoints[0][1]) { // tail reaches last bending point
+
+	while (worm.bendPoints[0] && worm.tailX === worm.bendPoints[0][0] 
+			&& worm.tailY === worm.bendPoints[0][1]) {//tail reaches last bending point
 		worm.speedTailRight = worm.bendPoints[0][2];
 		worm.speedTailDown = worm.bendPoints[0][3];
 		worm.bendPoints.shift();
