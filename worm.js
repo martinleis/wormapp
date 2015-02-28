@@ -12,8 +12,9 @@ function Worm(color, speedRight) {
 	this.tailY = canvas.height/2;
 	this.headY = canvas.height/2;
 	this.bendPoints = []; // will include coordinates & new speed to all bending points
-	this.scanner = [this.headX + speedRight, this.headY-5, 1, 10]; // includes coordinates, width and length of what's ahead
-	this.timeSinceLastMeal = 0
+	this.scanner = [this.headX, this.headY-5, 1, 10]; // includes coordinates, width and length of what's ahead
+	this.timeSinceLastMeal = 0;
+	this.lastSegment = 0;
 	this.score = 0;
 	$("#score").html(this.score);
 }
@@ -37,6 +38,7 @@ $(document).keydown(function(event) {
 			worm.speedHeadRight = -1;
 			worm.speedHeadDown = 0;
 			worm.scanner = [worm.headX-1, worm.headY-5, 1, 10];
+			worm.lastSegment = 0;
 		}
 		break;
 	case 38://up
@@ -45,6 +47,7 @@ $(document).keydown(function(event) {
 			worm.speedHeadRight = 0;
 			worm.speedHeadDown = -1;
 			worm.scanner = [worm.headX-5, worm.headY-1, 10, 1];
+			worm.lastSegment = 0;
 		}
 		break;
 	case 39://right
@@ -52,7 +55,8 @@ $(document).keydown(function(event) {
 			worm.bendPoints.push([worm.headX, worm.headY, 1, 0]);
 			worm.speedHeadRight = 1;
 			worm.speedHeadDown = 0;
-			worm.scanner = [worm.headX+1, worm.headY-5, 1, 10];
+			worm.scanner = [worm.headX, worm.headY-5, 1, 10];
+			worm.lastSegment = 0;
 		}
 		break;
 	case 40://down
@@ -60,7 +64,8 @@ $(document).keydown(function(event) {
 			worm.bendPoints.push([worm.headX, worm.headY, 0, 1]);
 			worm.speedHeadRight = 0;
 			worm.speedHeadDown = 1;
-			worm.scanner = [worm.headX-5, worm.headY+1, 10, 1];
+			worm.scanner = [worm.headX-5, worm.headY, 10, 1];
+			worm.lastSegment = 0;
 		}
 		break;
 	}
@@ -91,7 +96,8 @@ function drawWorm(ctx) {
 			food = new Food("black");
 			break;
 		}
-		if (imgData.data[i+3] === 0) {//if outside canvas
+		if (imgData.data[i+3] === 0
+			|| imgData.data[i] === 255 && imgData.data[i+1] === 0 && worm.lastSegment > 4) {//if outside canvas or collide with itself
 			clearInterval(gameOn);
 			updateBestScore();
 	 		alert("Game over!");
@@ -107,9 +113,11 @@ function drawWorm(ctx) {
 	worm.scanner[0] += worm.speedHeadRight;
 	worm.scanner[1] += worm.speedHeadDown;
 	worm.timeSinceLastMeal++;
+	worm.lastSegment++;
 
-	while (worm.bendPoints[0] && worm.tailX === worm.bendPoints[0][0] 
-			&& worm.tailY === worm.bendPoints[0][1]) {//tail reaches last bending point
+	while (worm.bendPoints[0]
+		&& worm.tailX === worm.bendPoints[0][0] //tail reaches last bending point
+		&& worm.tailY === worm.bendPoints[0][1]) {
 		worm.speedTailRight = worm.bendPoints[0][2];
 		worm.speedTailDown = worm.bendPoints[0][3];
 		worm.bendPoints.shift();
