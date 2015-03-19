@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="author" content="Martin Leis">
-	<title>Worm game</title>
-	<link rel="stylesheet" type="text/css" href="worm.css">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script type="text/javascript" src="worm.js"></script>
+    <title>Worm game</title>
+    <link rel="stylesheet" type="text/css" href="worm.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="worm.js"></script>
 </head>
 <body>
-<canvas id="canvas" width="800" height="300"></canvas>
-<input id="newGame" type="submit" value="New Game">
-<input id="pause" type="submit" value="Pause">
-<p>Score:</p>
-<p id="score">0</p>
-<p>Best score:<p>
-<p id="bestScore">0</p>
+    <canvas id="canvas" width="800" height="300"></canvas>
+    <input id="newGame" type="submit" value="New Game">
+    <input id="pause" type="submit" value="Pause">
+    <p>Score:</p>
+    <p id="score">0</p>
+    <p>Best score:<p>
+    <p id="bestScore">0</p>
+    <audio id="start" src="start.mp3"></audio>
+    <audio id="eat" src="eat.mp3"></audio>
+    <audio id="crash" src="crash.mp3"></audio>
 </body>
 </html>
